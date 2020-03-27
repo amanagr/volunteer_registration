@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'views/donation_view.dart';
 import 'auth.dart';
 
 class HomePage extends StatelessWidget {
@@ -37,31 +38,48 @@ class HomePage extends StatelessWidget {
 
   Widget _buildList() => ListView(
     children: [
-      _tile('Donation', 'Donate Some Money', Icons.account_balance),
+      Tile(title: 'Donation', subtitle: 'Donate Some Money', icon: Icons.account_balance),
       Divider(),
-      _tile('Flag yourself', 'as a victim of COVID-19', Icons.accessibility_new),
+      Tile(title: 'Flag yourself', subtitle:  'as a victim of COVID-19', icon: Icons.accessibility_new),
       Divider(),
-      _tile('Cook Food', 'yummy food!!!', Icons.fastfood),
+      Tile(title: 'Cook Food', subtitle:  'yummy food!!!', icon: Icons.fastfood),
       Divider(),
-      _tile('Deliver Food', 'You must have a vehicle', Icons.directions_bike),
+      Tile(title: 'Deliver Food', subtitle:  'You must have a vehicle',icon:  Icons.directions_bike),
       Divider(),
     ],
   );
 
-  ListTile _tile(String title, String subtitle, IconData icon) => ListTile(
-    title: Text(title,
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 20,
-        )),
-    subtitle: Text(subtitle),
-    leading: Icon(
-      icon,
-      color: Colors.blue[500],
-    ),
-    onTap: () {
-      
-    },
-  );
 
+}
+
+class Tile extends StatelessWidget{
+  const Tile({this.title, this.subtitle, this.icon});
+
+  final String title;
+  final String subtitle;
+  final IconData icon;
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    return ListTile(
+      title: Text(title,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+          )),
+      subtitle: Text(subtitle),
+      leading: Icon(
+        icon,
+        color: Colors.blue[500],
+      ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DonationView()),
+        );
+      },
+    );
+  }
 }
