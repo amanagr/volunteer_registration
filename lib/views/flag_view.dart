@@ -36,11 +36,28 @@ class _FlagViewState extends State<FlagView> {
                         child:  TextField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Contact Number: ',
+                            labelText: 'Contact Numbers(, separated): ',
                           ),
                         ),
                       ),
-                  ]
+                      Divider(height: 40,),
+                      Container(
+                        margin: const EdgeInsets.only(right: 50, left: 50),
+                        child:  TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Email Ids(, separated): ',
+                          ),
+                        ),
+                      ),
+                      Divider(height: 40,),
+                      RaisedButton(
+                          child: Text("Send alert message"),
+                          onPressed: () {
+                            _getCurrentLocation();
+                          },
+                       ),
+            ],
             ),
             if (_currentPosition == null) RaisedButton(
               child: Text("Confirm mark yourself as a victim of COVID-19"),
