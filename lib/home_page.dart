@@ -40,11 +40,11 @@ class HomePage extends StatelessWidget {
     children: [
       Tile(title: 'Donation', subtitle: 'Donate money to an NGO', icon: Icons.account_balance, view: DonationView()),
       Divider(),
-      Tile(title: 'Flag yourself', subtitle:  'as a victim of COVID-19', icon: Icons.accessibility_new, stateless_view: FlagView()),
+      Tile(title: 'Flag yourself', subtitle:  'as a victim of COVID-19', icon: Icons.accessibility_new, statefulView: FlagView()),
       Divider(),
-      Tile(title: 'Request Essential Items', subtitle:  'Please limit your request to essential items like food, masks, sanitizers, etc.', icon: Icons.fastfood, view: RequestItemView()),
+      Tile(title: 'Request Essential Items', subtitle:  'Please limit your request to essential items like food, masks, sanitizers, etc.', icon: Icons.fastfood, statefulView: RequestItemView()),
       Divider(),
-      Tile(title: 'Provide Essential Items', subtitle:  'An NGO will contact you if they need what you have', icon:  Icons.assignment_turned_in, view: ProvideItemView()),
+      Tile(title: 'Provide Essential Items', subtitle:  'An NGO will contact you if they need what you have', icon:  Icons.assignment_turned_in, statefulView: ProvideItemView()),
       Divider(),
       Tile(title: 'Locate nearest service provider', subtitle:  'NGO, GOV authorised vendors, Open Shops, etc.', icon:  Icons.gps_fixed),
       Divider(),
@@ -56,13 +56,13 @@ class HomePage extends StatelessWidget {
 
 
 class Tile extends StatelessWidget{
-  const Tile({this.title, this.subtitle, this.icon, this.view, this.stateless_view});
+  const Tile({this.title, this.subtitle, this.icon, this.view, this.statefulView});
 
   final String title;
   final String subtitle;
   final IconData icon;
   final StatelessWidget view;
-  final StatefulWidget stateless_view;
+  final StatefulWidget statefulView;
 
 
   @override
@@ -82,7 +82,7 @@ class Tile extends StatelessWidget{
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => view != null ? view : stateless_view),
+          MaterialPageRoute(builder: (context) => view != null ? view : statefulView),
         );
       },
     );

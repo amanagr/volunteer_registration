@@ -2,11 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'requested_item_list_view.dart';
-
+import 'package:geolocator/geolocator.dart';
 
 Item selectedUser;
 
-class ProvideItemView extends StatelessWidget {
+
+class ProvideItemView extends StatefulWidget {
+  @override
+  _ProvideItemViewState createState() => _ProvideItemViewState();
+}
+
+class _ProvideItemViewState extends State<ProvideItemView> {
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+  Position _currentPosition;
+  String _currentAddress;
 
   final databaseReference = FirebaseDatabase.instance.reference().child('provide');
   final contactController = TextEditingController();
@@ -15,6 +25,9 @@ class ProvideItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_currentAddress == null) {
+      _getCurrentLocation();
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Provide an essential item"),
@@ -56,7 +69,14 @@ class ProvideItemView extends StatelessWidget {
               Divider(height: 40,),
               RaisedButton(
                 onPressed: () {
+
                   createRecord();
+                  showDialog(context: context, child:
+                  new AlertDialog(
+                    title: new Text("Thanks! We have received your request."),
+                    content: new Text("You will be soon be contacted."),
+                  )
+                  );
                 },
                 child: Text(
                     'Register provided info',
@@ -86,12 +106,45 @@ class ProvideItemView extends StatelessWidget {
 
   void createRecord() {
     var ref = databaseReference.push();
-    ref.set({
-      'Contact Number': contactController.text,
-      'Amount': itemController.text,
-      'Item': selectedUser.name,
-      "Location": "Norway,XYZ Street",
+
+    if (_currentAddress != null) {
+      ref.set({
+        'Contact Number': contactController.text,
+        'Amount': itemController.text,
+        'Item': selectedUser.name,
+        "Location": _currentAddress,
+      });
+    }
+  }
+
+  _getCurrentLocation() {
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+
+      _getAddressFromLatLng();
+    }).catchError((e) {
+      print(e);
     });
+  }
+
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await geolocator.placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+
+      Placemark place = p[0];
+
+      setState(() {
+        _currentAddress =
+        "${place.locality}, ${place.postalCode}, ${place.country}";
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
 }
