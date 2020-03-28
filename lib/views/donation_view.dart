@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DonationView extends StatelessWidget {
   @override
@@ -8,22 +9,42 @@ class DonationView extends StatelessWidget {
         title: Text("Donate to an NGO"),
       ),
       body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Row(
+          child: Column(
             children: <Widget>[
                 DropdownScreen(),
+                Divider(height: 40,),
+                Container(
+                  margin: const EdgeInsets.only(right: 50, left: 50),
+                  child:  TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Enter Amount to donate in Rs.',
+                            ),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              WhitelistingTextInputFormatter.digitsOnly
+                            ],
+                            ),
+                ),
+                Divider(height: 40,),
+                RaisedButton(
+                  onPressed: () {},
+                  child: Text(
+                      'Select Payment Method ->',
+                      style: TextStyle(fontSize: 20)
+                  ),
+              ),
             ],
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center
         ),
       ),
-    ),
     );
   }
 }
+
+
+
 
 class Item {
   const Item(this.name);
