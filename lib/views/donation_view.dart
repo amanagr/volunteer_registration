@@ -12,9 +12,15 @@ class DonationView extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: DropdownScreen(),
+          child: Row(
+            children: <Widget>[
+                DropdownScreen(),
+            ],
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center
         ),
       ),
+    ),
     );
   }
 }
