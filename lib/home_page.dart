@@ -6,6 +6,7 @@ import 'views/donation_view.dart';
 import 'views/flag_view.dart';
 import 'views/request_essential_items.dart';
 import 'views/provide_essential_items.dart';
+import 'views/nearby_service_provider.dart';
 
 import 'auth.dart';
 
@@ -50,7 +51,7 @@ class HomePage extends StatelessWidget {
       Divider(),
       Tile(title: 'Provide Essential Items', subtitle:  'An NGO will contact you if they need what you have', icon:  Icons.assignment_turned_in, statefulView: ProvideItemView()),
       Divider(),
-      Tile(title: 'Locate nearest service provider', subtitle:  'NGO, GOV authorised vendors, Open Shops, etc.', icon:  Icons.gps_fixed),
+      Tile(title: 'Locate nearest service provider', subtitle:  'NGO, GOV authorised vendors, Open Shops, etc.', icon:  Icons.gps_fixed, statefulView: NearbyServiceView(),),
       Divider(),
       Tile(title: 'View nearby COVID-19 Victims', subtitle:  'See see potential/confirmed victims, deaths and recent news', icon:  Icons.map,
           statefulView: WebView(
