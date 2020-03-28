@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_database/firebase_database.dart';
+
 
 class ProvideItemView extends StatelessWidget {
+
+  final databaseReference = FirebaseDatabase.instance.reference();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +55,9 @@ class ProvideItemView extends StatelessWidget {
               ),
               Divider(height: 40,),
               RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  getData();
+                },
                 child: Text(
                     'See list of requested items',
                     style: TextStyle(fontSize: 20)
@@ -62,6 +69,11 @@ class ProvideItemView extends StatelessWidget {
         ),
       ),
     );
+  }
+  void getData(){
+    databaseReference.once().then((DataSnapshot snapshot) {
+      print('Data : ${snapshot.value}');
+    });
   }
 }
 

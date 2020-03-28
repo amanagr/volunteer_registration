@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+Item selectedUser;
 
 class RequestItemView extends StatelessWidget {
+
+
+  final databaseReference = FirebaseDatabase.instance.reference();
+  final contactController = TextEditingController();
+  final itemController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +25,8 @@ class RequestItemView extends StatelessWidget {
               Divider(height: 40,),
               Container(
                 margin: const EdgeInsets.only(right: 50, left: 50),
-                child:  TextField(
+                child: TextField(
+                  controller: itemController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Enter no. of items required',
@@ -29,7 +40,8 @@ class RequestItemView extends StatelessWidget {
               Divider(height: 40,),
               Container(
                 margin: const EdgeInsets.only(right: 50, left: 50),
-                child:  TextField(
+                child: TextField(
+                  controller: contactController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Contact Number',
@@ -42,7 +54,9 @@ class RequestItemView extends StatelessWidget {
               ),
               Divider(height: 40,),
               RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  createRecord();
+                },
                 child: Text(
                     'Request',
                     style: TextStyle(fontSize: 20)
@@ -55,8 +69,17 @@ class RequestItemView extends StatelessWidget {
       ),
     );
   }
-}
 
+  void createRecord() {
+    var ref = databaseReference.push();
+    ref.set({
+      'Contact Number': contactController.text,
+      'amount': itemController.text,
+      'item': selectedUser.name,
+      "Location": "Norway,XYZ Street",
+    });
+  }
+}
 
 
 
@@ -70,7 +93,6 @@ class DropdownScreen extends StatefulWidget {
 }
 
 class DropdownScreenState extends State<DropdownScreen> {
-  Item selectedUser;
   List<Item> users = <Item>[
     const Item('Food (enter 1 for 1 person)'),
     const Item('Masks'),
