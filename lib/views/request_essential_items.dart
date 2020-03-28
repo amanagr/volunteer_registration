@@ -74,8 +74,8 @@ class RequestItemView extends StatelessWidget {
     var ref = databaseReference.push();
     ref.set({
       'Contact Number': contactController.text,
-      'amount': itemController.text,
-      'item': selectedUser.name,
+      'Amount': itemController.text,
+      'Item': selectedUser.name,
       "Location": "Norway,XYZ Street",
     });
   }

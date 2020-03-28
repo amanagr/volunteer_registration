@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_database/firebase_database.dart';
-
+import 'requested_item_list_view.dart';
 
 
 Item selectedUser;
@@ -11,6 +11,7 @@ class ProvideItemView extends StatelessWidget {
   final databaseReference = FirebaseDatabase.instance.reference().child('provide');
   final contactController = TextEditingController();
   final itemController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +59,17 @@ class ProvideItemView extends StatelessWidget {
                   createRecord();
                 },
                 child: Text(
-                    'Register provide info',
+                    'Register provided info',
                     style: TextStyle(fontSize: 20)
                 ),
               ),
               Divider(height: 40,),
               RaisedButton(
                 onPressed: () {
-                  getData();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Recipe()),
+                  );
                 },
                 child: Text(
                     'See list of requested items',
@@ -84,20 +88,13 @@ class ProvideItemView extends StatelessWidget {
     var ref = databaseReference.push();
     ref.set({
       'Contact Number': contactController.text,
-      'amount': itemController.text,
-      'item': selectedUser.name,
+      'Amount': itemController.text,
+      'Item': selectedUser.name,
       "Location": "Norway,XYZ Street",
     });
   }
 
-  void getData(){
-    databaseReference.once().then((DataSnapshot snapshot) {
-      print('Data : ${snapshot.value}');
-    });
-  }
 }
-
-
 
 
 class Item {
@@ -146,4 +143,7 @@ class DropdownScreenState extends State<DropdownScreen> {
     );
   }
 }
+
+// Get and display all the requested items
+
 
