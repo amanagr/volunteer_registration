@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'views/donation_view.dart';
+import 'views/flag_view.dart';
 import 'auth.dart';
 
 class HomePage extends StatelessWidget {
@@ -40,7 +41,7 @@ class HomePage extends StatelessWidget {
     children: [
       Tile(title: 'Donation', subtitle: 'Donate Some Money', icon: Icons.account_balance, view: DonationView()),
       Divider(),
-      Tile(title: 'Flag yourself', subtitle:  'as a victim of COVID-19', icon: Icons.accessibility_new),
+      Tile(title: 'Flag yourself', subtitle:  'as a victim of COVID-19', icon: Icons.accessibility_new, stateless_view: FlagView()),
       Divider(),
       Tile(title: 'Cook Food', subtitle:  'yummy food!!!', icon: Icons.fastfood),
       Divider(),
@@ -55,12 +56,13 @@ class HomePage extends StatelessWidget {
 }
 
 class Tile extends StatelessWidget{
-  const Tile({this.title, this.subtitle, this.icon, this.view});
+  const Tile({this.title, this.subtitle, this.icon, this.view, this.stateless_view});
 
   final String title;
   final String subtitle;
   final IconData icon;
   final StatelessWidget view;
+  final StatefulWidget stateless_view;
 
 
   @override
@@ -80,7 +82,7 @@ class Tile extends StatelessWidget{
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => view),
+          MaterialPageRoute(builder: (context) => view != null ? view : stateless_view),
         );
       },
     );
