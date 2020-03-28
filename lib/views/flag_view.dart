@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 
 class FlagView extends StatefulWidget {
@@ -23,9 +22,28 @@ class _FlagViewState extends State<FlagView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            if (_currentPosition != null) Text(_currentAddress),
-            FlatButton(
-              child: Text("Get location"),
+            if (_currentPosition != null) Column(
+                  children: <Widget>[
+                      Text("Thanks! you have been successfully marked!"),
+                      Divider(height: 40,),
+                      Container(
+                          margin: const EdgeInsets.only(right: 50, left: 50),
+                          child:  Text("Please enter contact number and email of people you came in contact with in the last 14 days."),
+                      ),
+                      Divider(height: 40,),
+                      Container(
+                        margin: const EdgeInsets.only(right: 50, left: 50),
+                        child:  TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Contact Number: ',
+                          ),
+                        ),
+                      ),
+                  ]
+            ),
+            if (_currentPosition == null) RaisedButton(
+              child: Text("Confirm mark yourself as a victim of COVID-19"),
               onPressed: () {
                 _getCurrentLocation();
               },
@@ -66,3 +84,4 @@ class _FlagViewState extends State<FlagView> {
     }
   }
 }
+

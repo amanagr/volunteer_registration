@@ -18,7 +18,6 @@ class HomePage extends StatelessWidget {
       } catch (e) {
         print(e);
       }
-
     }
 
     return new Scaffold(
@@ -33,8 +32,6 @@ class HomePage extends StatelessWidget {
       body: new Center(
           child: _buildList()),
     );
-
-
   }
 
   Widget _buildList() => ListView(
@@ -51,8 +48,6 @@ class HomePage extends StatelessWidget {
       Divider(),
     ],
   );
-
-
 }
 
 class Tile extends StatelessWidget{
