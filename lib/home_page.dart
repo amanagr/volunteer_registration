@@ -46,6 +46,8 @@ class HomePage extends StatelessWidget {
       Divider(),
       Tile(title: 'Deliver Food', subtitle:  'You must have a vehicle',icon:  Icons.directions_bike),
       Divider(),
+      Tile(title: 'Sanitizing', subtitle:  'Help sanitize a nearby public place',icon:  Icons.assignment_turned_in),
+      Divider(),
     ],
   );
 
