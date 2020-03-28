@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildList() => ListView(
     children: [
-      Tile(title: 'Donation', subtitle: 'Donate Some Money', icon: Icons.account_balance),
+      Tile(title: 'Donation', subtitle: 'Donate Some Money', icon: Icons.account_balance, view: DonationView()),
       Divider(),
       Tile(title: 'Flag yourself', subtitle:  'as a victim of COVID-19', icon: Icons.accessibility_new),
       Divider(),
@@ -53,11 +53,12 @@ class HomePage extends StatelessWidget {
 }
 
 class Tile extends StatelessWidget{
-  const Tile({this.title, this.subtitle, this.icon});
+  const Tile({this.title, this.subtitle, this.icon, this.view});
 
   final String title;
   final String subtitle;
   final IconData icon;
+  final StatelessWidget view;
 
 
   @override
@@ -77,7 +78,7 @@ class Tile extends StatelessWidget{
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DonationView()),
+          MaterialPageRoute(builder: (context) => view),
         );
       },
     );
