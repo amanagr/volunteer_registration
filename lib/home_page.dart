@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'views/donation_view.dart';
 import 'views/flag_view.dart';
 import 'views/request_essential_items.dart';
 import 'views/provide_essential_items.dart';
+
 import 'auth.dart';
 
 class HomePage extends StatelessWidget {
@@ -48,7 +52,11 @@ class HomePage extends StatelessWidget {
       Divider(),
       Tile(title: 'Locate nearest service provider', subtitle:  'NGO, GOV authorised vendors, Open Shops, etc.', icon:  Icons.gps_fixed),
       Divider(),
-      Tile(title: 'View nearby COVID-19 Victims', subtitle:  'See potential/confirmed victims', icon:  Icons.map),
+      Tile(title: 'View nearby COVID-19 Victims', subtitle:  'See see potential/confirmed victims, deaths and recent news', icon:  Icons.map,
+          statefulView: WebView(
+            initialUrl: ' https://infographics.channelnewsasia.com/covid-19/map.html',
+            javaScriptMode: JavaScriptMode.unrestricted,
+          ),),
       Divider(),
     ],
   );
