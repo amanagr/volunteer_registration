@@ -3,9 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 
+
+Item selectedUser;
+
 class ProvideItemView extends StatelessWidget {
 
-  final databaseReference = FirebaseDatabase.instance.reference();
+  final databaseReference = FirebaseDatabase.instance.reference().child('provide');
+  final contactController = TextEditingController();
+  final itemController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,7 @@ class ProvideItemView extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(right: 50, left: 50),
                 child:  TextField(
+                  controller: itemController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Enter no. of items',
@@ -35,6 +41,7 @@ class ProvideItemView extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(right: 50, left: 50),
                 child:  TextField(
+                  controller: contactController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Contact Number',
@@ -47,7 +54,9 @@ class ProvideItemView extends StatelessWidget {
               ),
               Divider(height: 40,),
               RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  createRecord();
+                },
                 child: Text(
                     'Register provide info',
                     style: TextStyle(fontSize: 20)
@@ -70,6 +79,17 @@ class ProvideItemView extends StatelessWidget {
       ),
     );
   }
+
+  void createRecord() {
+    var ref = databaseReference.push();
+    ref.set({
+      'Contact Number': contactController.text,
+      'amount': itemController.text,
+      'item': selectedUser.name,
+      "Location": "Norway,XYZ Street",
+    });
+  }
+
   void getData(){
     databaseReference.once().then((DataSnapshot snapshot) {
       print('Data : ${snapshot.value}');
@@ -90,7 +110,7 @@ class DropdownScreen extends StatefulWidget {
 }
 
 class DropdownScreenState extends State<DropdownScreen> {
-  Item selectedUser;
+
   List<Item> users = <Item>[
     const Item('Food (enter 1 for 1 person)'),
     const Item('Masks'),

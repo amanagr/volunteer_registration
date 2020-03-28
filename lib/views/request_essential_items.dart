@@ -7,7 +7,7 @@ Item selectedUser;
 class RequestItemView extends StatelessWidget {
 
 
-  final databaseReference = FirebaseDatabase.instance.reference();
+  final databaseReference = FirebaseDatabase.instance.reference().child('request');
   final contactController = TextEditingController();
   final itemController = TextEditingController();
 
