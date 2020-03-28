@@ -36,19 +36,22 @@ class HomePage extends StatelessWidget {
 
   Widget _buildList() => ListView(
     children: [
-      Tile(title: 'Donation', subtitle: 'Donate Some Money', icon: Icons.account_balance, view: DonationView()),
+      Tile(title: 'Donation', subtitle: 'Donate money to an NGO', icon: Icons.account_balance, view: DonationView()),
       Divider(),
       Tile(title: 'Flag yourself', subtitle:  'as a victim of COVID-19', icon: Icons.accessibility_new, stateless_view: FlagView()),
       Divider(),
-      Tile(title: 'Cook Food', subtitle:  'yummy food!!!', icon: Icons.fastfood),
+      Tile(title: 'Request Essential Items', subtitle:  'Please limit your request to essential items like food, masks, sanitizers, etc.', icon: Icons.fastfood),
       Divider(),
-      Tile(title: 'Deliver Food', subtitle:  'You must have a vehicle',icon:  Icons.directions_bike),
+      Tile(title: 'Provide Essential Items', subtitle:  'Help your community by providing spare items which others need.', icon:  Icons.assignment_turned_in),
       Divider(),
-      Tile(title: 'Sanitizing', subtitle:  'Help sanitize a nearby public place',icon:  Icons.assignment_turned_in),
+      Tile(title: 'Locate nearest service provider', subtitle:  'NGO, GOV authorised vendors, Open Shops, etc.', icon:  Icons.gps_fixed),
+      Divider(),
+      Tile(title: 'View nearby COVID-19 Victims', subtitle:  'See potential/confirmed victims', icon:  Icons.map),
       Divider(),
     ],
   );
 }
+
 
 class Tile extends StatelessWidget{
   const Tile({this.title, this.subtitle, this.icon, this.view, this.stateless_view});
