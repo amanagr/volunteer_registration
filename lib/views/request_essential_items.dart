@@ -90,7 +90,7 @@ class _RequestItemViewState extends State<RequestItemView> {
                   );
                 },
                 child: Text(
-                    'See list of privded items',
+                    'See list of provided items',
                     style: TextStyle(fontSize: 20)
                 ),
               ),

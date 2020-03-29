@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
       Divider(),
       Tile(title: 'Locate nearest service provider', subtitle:  'NGO, GOV authorised vendors, Open Shops, etc.', icon:  Icons.gps_fixed, statefulView: NearbyServiceView(),),
       Divider(),
-      Tile(title: 'View nearby COVID-19 Victims', subtitle:  'See see potential/confirmed victims, deaths and recent news', icon:  Icons.map,
+      Tile(title: 'View nearby COVID-19 Victims', subtitle:  'See potential and confirmed victims, deaths and recent news', icon:  Icons.map,
           statefulView: WebView(
             initialUrl: ' https://infographics.channelnewsasia.com/covid-19/map.html',
             javaScriptMode: JavaScriptMode.unrestricted,

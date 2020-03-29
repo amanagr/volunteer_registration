@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:contact_picker/contact_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 
 class FlagView extends StatefulWidget {
   @override
@@ -11,9 +14,17 @@ class _FlagViewState extends State<FlagView> {
 
   Position _currentPosition;
   String _currentAddress;
+  var txt = TextEditingController();
+
+  List<Contact> _contact_list = new List();
+  ContactPicker _contactPicker = new ContactPicker();
+
 
   @override
   Widget build(BuildContext context) {
+    if (_contact_list.length != 0) {
+        print(_contact_list);
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Location"),
@@ -41,13 +52,30 @@ class _FlagViewState extends State<FlagView> {
                       Divider(height: 40,),
                       Container(
                         margin: const EdgeInsets.only(right: 50, left: 50),
-                        child:  TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Contact Numbers(, separated): ',
-                          ),
-                        ),
-                      ),
+                        child:  Row(
+                        children: <Widget>[
+                                      Expanded(
+                                          child: TextField(
+                                            controller: txt,
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: 'Contact Numbers(, separated): ',
+                                            ),
+                                          ),
+                                      ),
+                                           RaisedButton(
+                                              child: Text("Select Contacts"),
+                                              onPressed: () async {
+                                                Contact contact = await _contactPicker.selectContact();
+                                                setState(() {
+                                                  print(contact);
+                                                  _contact_list.add(contact);
+                                                });
+                                              },
+                                        ),
+                                  ],
+                                  )
+                       ),
                       Divider(height: 40,),
                       Container(
                         margin: const EdgeInsets.only(right: 50, left: 50),
@@ -108,5 +136,24 @@ class _FlagViewState extends State<FlagView> {
       print(e);
     }
   }
+
+  _openAddressBook() async{
+    Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([PermissionGroup.contacts]);
+
+    PermissionStatus permission = await PermissionHandler().checkPermissionStatus(PermissionGroup.contacts);
+
+    if (permission == PermissionStatus.granted){
+      _getContactData();
+    }
+
+  }
+
+  _getContactData() async{
+    Contact con = await _contactPicker.selectContact();
+    setState(() {
+      _contact_list.add(con);
+    });
+  }
+
 }
 
