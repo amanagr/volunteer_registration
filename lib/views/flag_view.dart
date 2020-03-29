@@ -24,11 +24,19 @@ class _FlagViewState extends State<FlagView> {
           children: <Widget>[
             if (_currentPosition != null) Column(
                   children: <Widget>[
-                      Text("Thanks! you have been successfully marked!"),
+                    Container(
+                      margin: const EdgeInsets.only(right: 50, left: 50),
+                      child:  Text("Thanks! you have been successfully marked! Following alert will be sent to your contacts:"),
+                    ),
                       Divider(height: 40,),
+                    Container(
+                      margin: const EdgeInsets.only(right: 50, left: 50),
+                      child:  Text("I have been tested positive for COVID-19. You may have contracted an infection as we met within the last 15 days. Please isolate yourself, to prevent this from spreading"),
+                    ),
+                    Divider(height: 40,),
                       Container(
                           margin: const EdgeInsets.only(right: 50, left: 50),
-                          child:  Text("Please enter contact number and email of people you came in contact with in the last 14 days."),
+                          child:  Text("Please enter contact number and email of people you came in contact with in the last 15 days."),
                       ),
                       Divider(height: 40,),
                       Container(
